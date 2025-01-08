@@ -5,12 +5,13 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ilbagatto/astropc-ts.git"
-  }, 
+  },
   "scripts": {
     "build": "rimraf dist && tsc --emitDeclarationOnly",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "ilbagatto <sergei.krushinski@gmail.com>",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.5",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "rimraf": "^6.0.1",
     "ts-jest": "^29.2.5",
