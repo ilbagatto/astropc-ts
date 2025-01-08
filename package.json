@@ -1,0 +1,29 @@
+{
+  "name": "astropc-ts",
+  "version": "1.0.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilbagatto/astropc-ts.git"
+  }, 
+  "scripts": {
+    "build": "rimraf dist && tsc --emitDeclarationOnly",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --fix"
+  },
+  "keywords": [],
+  "author": "ilbagatto <sergei.krushinski@gmail.com>",
+  "license": "ISC",
+  "description": "Base calculations for practical astronomy.",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.5",
+    "jest": "^29.7.0",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.1"
+  }
+}
