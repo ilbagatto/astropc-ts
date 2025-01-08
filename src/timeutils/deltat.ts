@@ -16,8 +16,8 @@
  *  see http://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html.
  */
 
-import { polynome } from "../mathutils";
-import { calDay, djdZero } from "./julian";
+import { polynome } from '../mathutils';
+import { calDay, djdZero } from './julian';
 
 const _historical: { [index: number]: number } = {
   // From J.Meeus: Astronomical Algorithms: 2 edition

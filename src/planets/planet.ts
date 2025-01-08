@@ -1,16 +1,6 @@
 import { EclipticCoords } from '../common';
 import { eccentricAnomaly, trueAnomaly } from '../kepler';
-import {
-  asin,
-  atan,
-  atan2,
-  cos,
-  degrees,
-  radians,
-  reduceRad,
-  sin,
-  sqrt,
-} from '../mathutils';
+import { asin, atan, atan2, cos, degrees, radians, reduceRad, sin, sqrt } from '../mathutils';
 import { instantiate, MLTerms, OElements, OrbitInstance, Terms } from './orbit';
 import {
   PertCalculator,
@@ -258,10 +248,7 @@ export class Planet {
   /// [ctx] is a context, [dt] is optional `delta-T` in seconds.
   /// Typically, some members of the returned PertRecord instance are
   /// initialized while others contain zeroes.
-  private calculatePerturbations(
-    ctx: CelestialSphera,
-    dt: number = 0
-  ): PertRecord {
+  private calculatePerturbations(ctx: CelestialSphera, dt: number = 0): PertRecord {
     return this.pertCalculator.calculatePerturbations(ctx, dt);
   }
 
@@ -292,14 +279,7 @@ export class Planet {
     if (dt == 0) {
       // take account of the finit light-travel time between the Earth and the planet.
       // h.rho is the Earth-planet distance
-      return this.getCorrectedHelio(
-        ctx,
-        oi,
-        lg,
-        rg,
-        h.rho * 5.775518e-3,
-        h.rho
-      );
+      return this.getCorrectedHelio(ctx, oi, lg, rg, h.rho * 5.775518e-3, h.rho);
     }
     return {
       ll: h.ll,
@@ -324,8 +304,9 @@ export class Planet {
     const sll = sin(h.ll);
     const cll = cos(h.ll);
     // geocentric ecliptic longitude
-    let lam = this.isInner
-      ? atan2(-1 * h.rpd * sll, rsn - h.rpd * cll) + lg + Math.PI
+    let lam =
+      this.isInner ?
+        atan2(-1 * h.rpd * sll, rsn - h.rpd * cll) + lg + Math.PI
       : atan2(rsn * sll, h.rpd - rsn * cll) + h.lpd;
     lam = reduceRad(lam);
     // geocentric latitude

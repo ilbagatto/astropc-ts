@@ -11,6 +11,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint src --fix",
+    "format": "prettier . --write",
     "prepare": "husky"
   },
   "keywords": [],
@@ -20,8 +21,11 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.5",
+    "eslint-config-prettier": "^9.1.0",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
+    "lint-staged": "^15.3.0",
+    "prettier": "3.4.2",
     "rimraf": "^6.0.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",

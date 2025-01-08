@@ -1,5 +1,5 @@
 /**
- * Calculates: 
+ * Calculates:
  * 1. Obliquity of the ecliptic.
  * 2. Effects of nutation with accuracy of about 1 arcsecond.
  *
@@ -67,8 +67,6 @@ export function nutation(t: number): NutationRecord {
     deltaEps: deps,
   }; //  1965-2-1 11:46 dpsi = -0.0042774118548615766
 }
-
-
 
 /**
  * Obliquity of ecliptic.

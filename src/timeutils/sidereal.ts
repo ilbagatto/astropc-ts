@@ -23,7 +23,7 @@
  * means.
  *
  * -- *Peter Duffett-Smith, "Astronomy with your PC*"
- *  
+ *
  */
 
 import { toRange } from '../mathutils';
@@ -39,9 +39,7 @@ function _tnaught(djd: number): number {
   const t = dj0 / 36525;
   return (
     6.57098e-2 * (djd - dj0) -
-    (24 -
-      (6.6460656 + (5.1262e-2 + t * 2.581e-5) * t) -
-      2400 * (t - (date.year - 1900) / 100))
+    (24 - (6.6460656 + (5.1262e-2 + t * 2.581e-5) * t) - 2400 * (t - (date.year - 1900) / 100))
   );
 }
 

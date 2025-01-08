@@ -24,7 +24,6 @@ describe('UTC -> GST', () => {
   ]; // 1980-04-22.6
 
   for (let { djd, lst } of cases) {
-    test(`DJD ${djd} == GST ${lst}`, () =>
-      expect(djdToSidereal(djd)).toBeCloseTo(lst, 0.4));
+    test(`DJD ${djd} == GST ${lst}`, () => expect(djdToSidereal(djd)).toBeCloseTo(lst, 0.4));
   }
 });

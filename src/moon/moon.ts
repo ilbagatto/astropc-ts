@@ -3,9 +3,7 @@ import { cos, frac, polynome, radians, reduceDeg, sin } from '../mathutils';
 import { nutation } from '../nutobliq';
 import { DAYS_PER_CENT } from '../timeutils';
 
-type OrbitMember = 'L'| 'D' | 'M' | 'F';
-
-
+type OrbitMember = 'L' | 'D' | 'M' | 'F';
 
 /** Moon Position, includes parallax and daily motion. */
 export interface MoonPos extends EclipticCoords {
@@ -15,27 +13,13 @@ export interface MoonPos extends EclipticCoords {
   motion: number;
 }
 
-const _M = [
-  27.32158213, 365.2596407, 27.55455094, 29.53058868, 27.21222039, 6798.363307,
-];
+const _M = [27.32158213, 365.2596407, 27.55455094, 29.53058868, 27.21222039, 6798.363307];
 
 const MOON_ORBIT: Record<OrbitMember, number[]> = {
   // Mean longitude
-  L: [
-    218.3164477,
-    481267.88123421,
-    -0.0015786,
-    1.0 / 538841,
-    -(1.0 / 65194000),
-  ],
+  L: [218.3164477, 481267.88123421, -0.0015786, 1.0 / 538841, -(1.0 / 65194000)],
   // Mean elongation
-  D: [
-    297.8501921,
-    445267.1114034,
-    -0.0018819,
-    1.0 / 545868,
-    -(1.0 / 113065000),
-  ],
+  D: [297.8501921, 445267.1114034, -0.0018819, 1.0 / 545868, -(1.0 / 113065000)],
   // Mean anomaly
   M: [134.9633964, 477198.8675055, 0.0087414, 1.0 / 69699, -(1.0 / 14712000)],
   // Argument of latitude (mean distance of the Moon from its ascending node)
@@ -54,14 +38,7 @@ const SUN_ORBIT = {
  */
 export function meanNode(t: number): number {
   return reduceDeg(
-    polynome(
-      t,
-      125.0445479,
-      -1934.1362891,
-      0.0020754,
-      1.0 / 467441,
-      1.0 / 60616000
-    )
+    polynome(t, 125.0445479, -1934.1362891, 0.0020754, 1.0 / 467441, 1.0 / 60616000)
   );
 }
 
@@ -296,13 +273,10 @@ export function truePosition(djd: number): MoonPos {
 /**
  * Apparent position of the Moon, with respect of nutation, aberration and optionally, light-time travel.
  * @param djd - number of Julian days since 1900 Jan. 0.5.
- * @param options 
+ * @param options
  * @returns MoonPos record
  */
-export function apparent(
-  djd: number,
-  options?: { dpsi?: number; ignoreLightTravel: true }
-) {
+export function apparent(djd: number, options?: { dpsi?: number; ignoreLightTravel: true }) {
   const truePos = truePosition(djd);
   options ??= { ignoreLightTravel: true };
   options.dpsi ??= nutation(djd / DAYS_PER_CENT).deltaPsi;
@@ -323,30 +297,28 @@ export function apparent(
  * @param trueNode - If true, the result refers to the true equinox of the date.
  * @returns longitude in arc-degrees
  */
-export function lunarNode(djd:number, trueNode=true): number {
-    const t =
-        (djd - 36525) / 36525; // convert DJD to centuries since epoch 2000.0
-    const mn = polynome(
-        t, 125.0445479, -1934.1362891, 0.0020754, 1.0 / 467441, 1.0 / 60616000);
-    let nd;
-    if (trueNode) {
-      const assemble = (terms: number[]) => radians(reduceDeg(polynome(t, ...terms)));
-      const assembleMoon = (k:OrbitMember) => assemble(MOON_ORBIT[k]);
-  
-      const d = assembleMoon('D');
-      const m = assembleMoon('M');
-      const f = assembleMoon('F');      
-      const ms = assemble(SUN_ORBIT['M']);
-      nd = mn -
-          1.4979 * sin(2 * (d - f)) -
-          0.1500 * sin(ms) -
-          0.1226 * sin(2 * d) +
-          0.1176 * sin(2 * f) -
-          0.0801 * sin(2 * (m - f));
-    } else {
-      nd = mn;
-    }
-  
-    return reduceDeg(nd);
+export function lunarNode(djd: number, trueNode = true): number {
+  const t = (djd - 36525) / 36525; // convert DJD to centuries since epoch 2000.0
+  const mn = polynome(t, 125.0445479, -1934.1362891, 0.0020754, 1.0 / 467441, 1.0 / 60616000);
+  let nd;
+  if (trueNode) {
+    const assemble = (terms: number[]) => radians(reduceDeg(polynome(t, ...terms)));
+    const assembleMoon = (k: OrbitMember) => assemble(MOON_ORBIT[k]);
+
+    const d = assembleMoon('D');
+    const m = assembleMoon('M');
+    const f = assembleMoon('F');
+    const ms = assemble(SUN_ORBIT['M']);
+    nd =
+      mn -
+      1.4979 * sin(2 * (d - f)) -
+      0.15 * sin(ms) -
+      0.1226 * sin(2 * d) +
+      0.1176 * sin(2 * f) -
+      0.0801 * sin(2 * (m - f));
+  } else {
+    nd = mn;
   }
-  
+
+  return reduceDeg(nd);
+}

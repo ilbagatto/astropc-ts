@@ -31,9 +31,7 @@ export function meanLongitude(t: number): number {
  * @returns arc-degrees
  */
 export function meanAnomaly(t: number): number {
-  return reduceDeg(
-    3.5847583e2 - (1.5e-4 + 3.3e-6 * t) * t * t + frac360(9.999736042e1 * t)
-  );
+  return reduceDeg(3.5847583e2 - (1.5e-4 + 3.3e-6 * t) * t * t + frac360(9.999736042e1 * t));
 }
 
 /**
@@ -53,8 +51,7 @@ export function trueGeocentric(t: number, ms?: number): Polar {
   const nu = trueAnomaly(s, ea); // true anomaly
   const t2 = t * t;
 
-  const calcPert = (a: number, b: number): number =>
-    radians(a + frac360(b * t));
+  const calcPert = (a: number, b: number): number => radians(a + frac360(b * t));
 
   const a = calcPert(153.23, 6.255209472e1); // Venus
   const b = calcPert(216.57, 1.251041894e2); // ?
@@ -65,18 +62,10 @@ export function trueGeocentric(t: number, ms?: number): Polar {
 
   // correction in orbital longitude
   const dl =
-    1.34e-3 * cos(a) +
-    1.54e-3 * cos(b) +
-    2e-3 * cos(c) +
-    1.79e-3 * sin(d) +
-    1.78e-3 * sin(e);
+    1.34e-3 * cos(a) + 1.54e-3 * cos(b) + 2e-3 * cos(c) + 1.79e-3 * sin(d) + 1.78e-3 * sin(e);
   // correction in radius-vector
   const dr =
-    5.43e-6 * sin(a) +
-    1.575e-5 * sin(b) +
-    1.627e-5 * sin(c) +
-    3.076e-5 * cos(d) +
-    9.27e-6 * sin(h);
+    5.43e-6 * sin(a) + 1.575e-5 * sin(b) + 1.627e-5 * sin(c) + 3.076e-5 * cos(d) + 9.27e-6 * sin(h);
   const lsn = reduceDeg(degrees(nu) + ls - ms + dl);
   const rsn = 1.0000002 * (1 - s * cos(ea)) + dr;
   return { phi: lsn, rho: rsn };
@@ -89,10 +78,7 @@ export function trueGeocentric(t: number, ms?: number): Polar {
  * @param options: { dpsi: nutation in longitude, optional, ignoreLightTravel: true }
  * @returns
  */
-export function apparent(
-  djd: number,
-  options: { dpsi?: number; ignoreLightTravel: true }
-): Polar {
+export function apparent(djd: number, options: { dpsi?: number; ignoreLightTravel: true }): Polar {
   const t = djd / DAYS_PER_CENT;
   const tGeo = trueGeocentric(t);
   options.dpsi ??= nutation(t).deltaPsi;

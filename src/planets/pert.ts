@@ -1,6 +1,6 @@
-import { cos, radians, reduceRad, sin } from "../mathutils";
-import { PlanetId } from "./planet";
-import { CelestialSphera } from "./sphera";
+import { cos, radians, reduceRad, sin } from '../mathutils';
+import { PlanetId } from './planet';
+import { CelestialSphera } from './sphera';
 
 /** A record holding perturbations for heliocentric orbit. */
 export type PertRecord = {
@@ -54,10 +54,7 @@ export abstract class PertCalculator {
    * @returns PertRecord instance. Typically, some members are initialized
    * while others contain zeroes.
    */
-  abstract calculatePerturbations(
-    ctx: CelestialSphera,
-    dt?: number
-  ): PertRecord;
+  abstract calculatePerturbations(ctx: CelestialSphera, dt?: number): PertRecord;
 }
 
 // Mercury perturbations.
@@ -66,10 +63,7 @@ export class PertMercury extends PertCalculator {
     super(PlanetId.Mercury);
   }
 
-  override calculatePerturbations(
-    ctx: CelestialSphera,
-    dt: number = 0
-  ): PertRecord {
+  override calculatePerturbations(ctx: CelestialSphera, dt: number = 0): PertRecord {
     const me = ctx.getMeanAnomaly(this.id, dt);
     const ve = ctx.getMeanAnomaly(PlanetId.Venus, dt);
     const ju = ctx.getMeanAnomaly(PlanetId.Jupiter, dt);
@@ -93,10 +87,7 @@ export class PertVenus extends PertCalculator {
     super(PlanetId.Venus);
   }
 
-  override calculatePerturbations(
-    ctx: CelestialSphera,
-    dt: number = 0
-  ): PertRecord {
+  override calculatePerturbations(ctx: CelestialSphera, dt: number = 0): PertRecord {
     const t = ctx.t;
     const ms = ctx.manomSun;
     const ve = ctx.getMeanAnomaly(PlanetId.Venus, dt);
@@ -127,10 +118,7 @@ export class PertMars extends PertCalculator {
     super(PlanetId.Mars);
   }
 
-  override calculatePerturbations(
-    ctx: CelestialSphera,
-    dt: number = 0
-  ): PertRecord {
+  override calculatePerturbations(ctx: CelestialSphera, dt: number = 0): PertRecord {
     const ve = ctx.getMeanAnomaly(PlanetId.Venus, dt);
     const ju = ctx.getMeanAnomaly(PlanetId.Jupiter, dt);
 
@@ -533,8 +521,7 @@ export class PertUranus extends PertCalculator {
       8.122e-3 * sin(x6);
     dml = radians(dml);
 
-    const dp =
-      1.20303e-1 * sx9 + 6.197e-3 * s2x9 + (1.9472e-2 - 9.47e-4 * x1) * cx9;
+    const dp = 1.20303e-1 * sx9 + 6.197e-3 * s2x9 + (1.9472e-2 - 9.47e-4 * x1) * cx9;
     const dm = dml - radians(dp) / s;
     let ds = (163 * x1 - 3349) * sx9 + 20981 * cx9 + 1311 * c2x9;
     ds *= 1e-7;
@@ -602,12 +589,9 @@ export class PertNeptune extends PertCalculator {
     const c2x9 = cos(2 * x9);
 
     let dml =
-      (1.089e-3 * x1 - 5.89833e-1) * sx9 +
-      (4.658e-3 * x1 - 5.6094e-2) * cx9 -
-      2.4286e-2 * s2x9;
+      (1.089e-3 * x1 - 5.89833e-1) * sx9 + (4.658e-3 * x1 - 5.6094e-2) * cx9 - 2.4286e-2 * s2x9;
     dml = radians(dml);
-    const dp =
-      2.4039e-2 * sx9 - 2.5303e-2 * cx9 + 6.206e-3 * s2x9 - 5.992e-3 * c2x9;
+    const dp = 2.4039e-2 * sx9 - 2.5303e-2 * cx9 + 6.206e-3 * s2x9 - 5.992e-3 * c2x9;
     const dm = dml - radians(dp) / s;
     let ds = 4389 * sx9 + 1129 * s2x9 + 4262 * cx9 + 1089 * c2x9;
     ds *= 1e-7;
@@ -625,12 +609,7 @@ export class PertNeptune extends PertCalculator {
       2.833e-3 * s2x12 * cx8;
     let dhl = 3.36e-4 * c2x12 * sx8 + 3.64e-4 * s2x12 * cx8;
     dhl = radians(dhl);
-    let dr =
-      -40596 +
-      4992 * cos(x10) +
-      2744 * cos(x11) +
-      2044 * cos(x12) +
-      1051 * c2x12;
+    let dr = -40596 + 4992 * cos(x10) + 2744 * cos(x11) + 2044 * cos(x12) + 1051 * c2x12;
     dr *= 1e-6;
 
     return { dl, dr, dml, ds, dm, da, dhl };

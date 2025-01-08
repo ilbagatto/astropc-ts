@@ -1,10 +1,7 @@
 import { apparent, lunarNode, truePosition } from '../../src/moon/moon';
 const delta = 3;
 
-
 describe('Moon true position', () => {
-  
-
   const cases = [
     {
       djd: -1.00005e4,
@@ -131,16 +128,11 @@ describe('Moon true position', () => {
   for (const { djd, coords, delta, motion } of cases) {
     const pos = truePosition(djd);
 
-    test(`longitude for djd ${djd}`, () =>
-      expect(pos.lambda).toBeCloseTo(coords[0], delta));
-    test('latitude for djd ${djd}', () =>
-      expect(pos.beta).toBeCloseTo(coords[1], delta));
-    test('delta for djd ${djd}', () =>
-      expect(pos.delta).toBeCloseTo(delta, delta));
-    test('parallax for djd ${djd}', () =>
-      expect(pos.parallax).toBeCloseTo(coords[2], delta));
-    test('daily motion for djd ${djd}', () =>
-      expect(pos.motion).toBeCloseTo(motion, delta));
+    test(`longitude for djd ${djd}`, () => expect(pos.lambda).toBeCloseTo(coords[0], delta));
+    test('latitude for djd ${djd}', () => expect(pos.beta).toBeCloseTo(coords[1], delta));
+    test('delta for djd ${djd}', () => expect(pos.delta).toBeCloseTo(delta, delta));
+    test('parallax for djd ${djd}', () => expect(pos.parallax).toBeCloseTo(coords[2], delta));
+    test('daily motion for djd ${djd}', () => expect(pos.motion).toBeCloseTo(motion, delta));
   }
 });
 
@@ -159,8 +151,7 @@ describe('Moon apparent postion', () => {
 
   for (const { djd, lng } of cases) {
     const pos = apparent(djd);
-    test(`longitude for djd ${djd}`, () =>
-      expect(pos.lambda).toBeCloseTo(lng, delta));
+    test(`longitude for djd ${djd}`, () => expect(pos.lambda).toBeCloseTo(lng, delta));
   }
 });
 

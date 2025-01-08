@@ -27,21 +27,13 @@ export class CelestialSphera {
    * @param apparent
    * @returns
    */
-  public static forDJD(djd: number, apparent: boolean = true):CelestialSphera {
+  public static forDJD(djd: number, apparent: boolean = true): CelestialSphera {
     const dt = deltaT(djd);
     const t = (djd + dt / 86400.0) / DAYS_PER_CENT;
     const ms = sun.meanAnomaly(t);
     const nu = nutation(t);
     const ob = obliquity(djd, nu.deltaEps);
-    return new CelestialSphera(
-      t,
-      sun.trueGeocentric(t, ms),
-      radians(ms),
-      nu,
-      apparent,
-      ob,
-      dt
-    );
+    return new CelestialSphera(t, sun.trueGeocentric(t, ms), radians(ms), nu, apparent, ob, dt);
   }
 
   /**

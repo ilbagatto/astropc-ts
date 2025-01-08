@@ -1,5 +1,8 @@
 export abstract class Quarter {
-  constructor(public name: string, public coeff: number) { }
+  constructor(
+    public name: string,
+    public coeff: number
+  ) {}
 
   public static newMoon(): NewMoon {
     return NewMoon.getInstance();

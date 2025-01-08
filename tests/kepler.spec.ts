@@ -19,14 +19,12 @@ const cases = [
 
 describe('Eccentric anomaly', () => {
   for (const { s, m, e } of cases) {
-    test(`s: ${s}, m: ${m}`, () =>
-      expect(eccentricAnomaly(s, m)).toBeCloseTo(e, delta));
+    test(`s: ${s}, m: ${m}`, () => expect(eccentricAnomaly(s, m)).toBeCloseTo(e, delta));
   }
 });
 
 describe('True anomaly', () => {
   for (var { s, e, ta } of cases) {
-    test(`s: ${s}, e: ${e}`, () =>
-      expect(trueAnomaly(s, e)).toBeCloseTo(ta, delta));
+    test(`s: ${s}, e: ${e}`, () => expect(trueAnomaly(s, e)).toBeCloseTo(ta, delta));
   }
 });

@@ -38,7 +38,7 @@ const casesEquHor = [
 ];
 
 describe('Equatorial -> Eclipical', () => {
-  for (const { ra, de, ob,lo, la } of casesEquEcl) {
+  for (const { ra, de, ob, lo, la } of casesEquEcl) {
     const [got_lo, got_la] = equ2ecl(ra, de, ob);
     test(`Lambda for ${ra}, ${de}`, () => expect(lo).toBeCloseTo(got_lo, delta));
     test(`Beta for ${ra}, ${de}`, () => expect(la).toBeCloseTo(got_la, delta));
@@ -64,9 +64,7 @@ describe('Equatorial -> Horizontal', () => {
 describe('Horizontal -> Equatorial', () => {
   for (const { az, al, gl, ha, de } of casesEquHor) {
     const [got_ha, got_de] = hor2equ(az, al, gl);
-    test(`Hour angle for ${az}, ${al}`, () =>
-      expect(got_ha / 15).toBeCloseTo(ha, delta));
-    test(`Declination for ${az}, ${al}`, () =>
-      expect(got_de).toBeCloseTo(de, delta));
+    test(`Hour angle for ${az}, ${al}`, () => expect(got_ha / 15).toBeCloseTo(ha, delta));
+    test(`Declination for ${az}, ${al}`, () => expect(got_de).toBeCloseTo(de, delta));
   }
 });

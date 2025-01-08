@@ -94,8 +94,7 @@ describe('Ranges', () => {
 
 describe('Fractional part of a number', () => {
   test('frac(5.5) should be 0.5', () => expect(frac(5.5)).toBeCloseTo(0.5));
-  test('with a negative argument should be negative', () =>
-    expect(frac(-5.5)).toBeCloseTo(-0.5));
+  test('with a negative argument should be negative', () => expect(frac(-5.5)).toBeCloseTo(-0.5));
 });
 
 describe('frac360', () => {
@@ -110,8 +109,7 @@ describe('frac360', () => {
   ];
 
   for (const [exp, arg] of cases) {
-    test(`${arg} --> ${exp}`, () =>
-      expect(frac360(arg)).toBeCloseTo(exp, delta));
+    test(`${arg} --> ${exp}`, () => expect(frac360(arg)).toBeCloseTo(exp, delta));
   }
 });
 
@@ -119,14 +117,10 @@ describe('Sexigecimal', () => {
   const delta = 1e-6;
 
   describe('Sexadecimalal --> Decimal', () => {
-    test('Positive, 3 values', () =>
-      expect(ddd(37, 35, 0)).toBeCloseTo(37.5833333, delta));
-    test('Positive, 2 values', () =>
-      expect(ddd(37, 35)).toBeCloseTo(37.5833333, delta));
-    test('Negative degrees', () =>
-      expect(ddd(-37, 35)).toBeCloseTo(-37.5833333, delta));
-    test('Negative minutes', () =>
-      expect(ddd(0, -35)).toBeCloseTo(-0.5833333, delta));
+    test('Positive, 3 values', () => expect(ddd(37, 35, 0)).toBeCloseTo(37.5833333, delta));
+    test('Positive, 2 values', () => expect(ddd(37, 35)).toBeCloseTo(37.5833333, delta));
+    test('Negative degrees', () => expect(ddd(-37, 35)).toBeCloseTo(-37.5833333, delta));
+    test('Negative minutes', () => expect(ddd(0, -35)).toBeCloseTo(-0.5833333, delta));
   });
 
   describe('Decimal --> Sexadecimalal', () => {
@@ -163,10 +157,10 @@ describe('Sexigecimal', () => {
 describe('Arcs', () => {
   const delta = 1e-6;
 
-  describe('Conversions', () =>{
+  describe('Conversions', () => {
     test('Degrees -> Radians', () => expect(radians(180)).toBeCloseTo(Math.PI));
     test('Radians -> Degrees', () => expect(degrees(Math.PI)).toBeCloseTo(180));
-  })
+  });
 
   describe('Shortest arc', () => {
     const cases = [
@@ -183,10 +177,7 @@ describe('Arcs', () => {
 
     for (const { a, b, x } of cases) {
       test(`a = ${a}, b = ${b}, rad.`, () => {
-        expect(shortestArcRad(radians(a), radians(b))).toBeCloseTo(
-          radians(x),
-          delta
-        );
+        expect(shortestArcRad(radians(a), radians(b))).toBeCloseTo(radians(x), delta);
       });
     }
   });

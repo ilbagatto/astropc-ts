@@ -1,15 +1,4 @@
-import {
-  acos,
-  asin,
-  atan2,
-  cos,
-  degrees,
-  PI2,
-  radians,
-  reduceRad,
-  sin,
-  tan,
-} from './mathutils';
+import { acos, asin, atan2, cos, degrees, PI2, radians, reduceRad, sin, tan } from './mathutils';
 
 interface Spherical2D {
   a: number;
@@ -37,12 +26,7 @@ enum EquEclConversionType {
  * @param type - conversion direction
  * @returns the pair of result coordinates in radians
  */
-function equecl(
-  x: number,
-  y: number,
-  e: number,
-  type: EquEclConversionType
-): Spherical2D {
+function equecl(x: number, y: number, e: number, type: EquEclConversionType): Spherical2D {
   const k = type.valueOf();
   const sinE = sin(e);
   const cosE = cos(e);
@@ -54,7 +38,7 @@ function equecl(
 
 /**
  *  Convert between azimuth/altitude and hour-angle/declination.
- * 
+ *
  *  The equations are symmetrical in the two pairs of coordinates so that
  *  exactly the same code may be used to convert in either direction, there
  *  is no need to specify direction with a swich (see Dufett-Smith, page 35).
@@ -82,26 +66,21 @@ function equhor(x: number, y: number, phi: number): Spherical2D {
 
 /**
  * Intermediate function, converts radians to arc-degrees.
- * 
+ *
  * @param x - the first coordinate, arc-degrees
  * @param y - the second coordinate, arc-degrees
  * @param e - obliquity of the ecliptic, arc-degrees
  * @param type - conversion direction
  * @returns pair of result coordinates, arc-degrees
  */
-function convertEquEcl(
-  x: number,
-  y: number,
-  e: number,
-  type: EquEclConversionType
-): Spherical2D {
+function convertEquEcl(x: number, y: number, e: number, type: EquEclConversionType): Spherical2D {
   const { a, b } = equecl(radians(x), radians(y), radians(e), type);
   return { a: degrees(a), b: degrees(b) };
 }
 
 /**
  * Intermediate function, converts radians to arc-degrees.
- * 
+ *
  * @param x - the first coordinate, arc-degrees
  * @param y - the second coordinate, arc-degrees
  * @param phi - geographical latitude, arc-degrees
@@ -120,17 +99,8 @@ function convertEquHor(x: number, y: number, phi: number): Spherical2D {
  * @param eps - obliquity of the ecliptic, arc-degrees
  * @returns - the pair of ecliptic coordinates, `(lambda, beta)`, in arc-degrees.
  */
-export function equ2ecl(
-  alpha: number,
-  delta: number,
-  eps: number
-): [number, number] {
-  const { a, b } = convertEquEcl(
-    alpha,
-    delta,
-    eps,
-    EquEclConversionType.EquToEcl
-  );
+export function equ2ecl(alpha: number, delta: number, eps: number): [number, number] {
+  const { a, b } = convertEquEcl(alpha, delta, eps, EquEclConversionType.EquToEcl);
   return [a, b];
 }
 
@@ -142,17 +112,8 @@ export function equ2ecl(
  * @param eps - obliquity of the ecliptic
  * @returns the pair of equatorial coordinates, `[alpha, delta]`, arc-degrees.
  */
-export function ecl2equ(
-  lambda: number,
-  beta: number,
-  eps: number
-): [number, number] {
-  const { a, b } = convertEquEcl(
-    lambda,
-    beta,
-    eps,
-    EquEclConversionType.EclToEqu
-  );
+export function ecl2equ(lambda: number, beta: number, eps: number): [number, number] {
+  const { a, b } = convertEquEcl(lambda, beta, eps, EquEclConversionType.EclToEqu);
   return [a, b];
 }
 
@@ -167,11 +128,7 @@ export function ecl2equ(
  * Azimuth is  measured westward from the South.
  * Altitude is positive above the horizon
  */
-export function equ2hor(
-  h: number,
-  delta: number,
-  phi: number
-): [number, number] {
+export function equ2hor(h: number, delta: number, phi: number): [number, number] {
   const { a, b } = convertEquHor(h, delta, phi);
   return [a, b];
 }
@@ -194,11 +151,7 @@ export function equ2hor(
  * @param phi
  * @returns
  */
-export function hor2equ(
-  az: number,
-  alt: number,
-  phi: number
-): [number, number] {
+export function hor2equ(az: number, alt: number, phi: number): [number, number] {
   const { a, b } = convertEquHor(az, alt, phi);
   return [a, b];
 }

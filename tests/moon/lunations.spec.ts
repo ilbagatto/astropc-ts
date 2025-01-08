@@ -1,9 +1,8 @@
 import { findClosestPhase, Quarter } from '../../src/moon';
 
-
 describe('Events closest to dates', () => {
-    const delta = 2;
-    const cases = [
+  const delta = 2;
+  const cases = [
     {
       date: { year: 1984, month: 9, day: 1 },
       quarter: Quarter.newMoon(),

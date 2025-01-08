@@ -21,8 +21,7 @@ const cases = [
 
 describe('Civil to Julian', () => {
   for (let { ymd, djd } of cases) {
-    test(`${ymd.year}-${ymd.month}-${ymd.day}`, () =>
-      expect(julDay(ymd)).toBeCloseTo(djd));
+    test(`${ymd.year}-${ymd.month}-${ymd.day}`, () => expect(julDay(ymd)).toBeCloseTo(djd));
   }
 
   test('Zero date (Jan 0.5, 1900)', () =>
@@ -51,19 +50,15 @@ describe('Julian to Civil', () => {
 });
 
 describe('DJD Midnight', () => {
-  test('Before noon', () =>
-    expect(djdMidnight(23772.99)).toBeCloseTo(23772.5, 0.5));
+  test('Before noon', () => expect(djdMidnight(23772.99)).toBeCloseTo(23772.5, 0.5));
 
-  test('After noon', () =>
-    expect(djdMidnight(23773.3)).toBeCloseTo(23772.5, 0.5));
+  test('After noon', () => expect(djdMidnight(23773.3)).toBeCloseTo(23772.5, 0.5));
 
   test('Previous day, before midnight', () =>
     expect(djdMidnight(23772.4)).toBeCloseTo(23771.5, 0.5));
 
-  test('Previous day, before noon', () =>
-    expect(djdMidnight(23771.9)).toBeCloseTo(23771.5, 0.5));
-  test('Next day, after midnight', () =>
-    expect(djdMidnight(23773.6)).toBeCloseTo(23773.5, 0.5));
+  test('Previous day, before noon', () => expect(djdMidnight(23771.9)).toBeCloseTo(23771.5, 0.5));
+  test('Next day, after midnight', () => expect(djdMidnight(23773.6)).toBeCloseTo(23773.5, 0.5));
 });
 
 test('DJD Zero', () => expect(djdZero(2010)).toBeCloseTo(40176.5, 0.5));
@@ -87,30 +82,20 @@ describe('Weekdays', () => {
 });
 
 describe('Leap year', () => {
-  const leap = [
-    2000, 2004, 2008, 2012, 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044,
-    2048,
-  ];
-  const noleap = [
-    2001, 2003, 2010, 2014, 2017, 2019, 2025, 2026, 2035, 2038, 2045, 2047,
-    2049,
-  ];
+  const leap = [2000, 2004, 2008, 2012, 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048];
+  const noleap = [2001, 2003, 2010, 2014, 2017, 2019, 2025, 2026, 2035, 2038, 2045, 2047, 2049];
 
   for (const y of leap) {
-    test(`${y} should be a leap year`, () =>
-      expect(isLeapYear(y)).toBeTruthy());
+    test(`${y} should be a leap year`, () => expect(isLeapYear(y)).toBeTruthy());
   }
   for (const y of noleap) {
-    test(`${y} should not be a leap year`, () =>
-      expect(isLeapYear(y)).toBeFalsy());
+    test(`${y} should not be a leap year`, () => expect(isLeapYear(y)).toBeFalsy());
   }
 });
 
 describe('Day of year', () => {
-  test('Non-leap year', () =>
-    expect(dayOfYear({ year: 1990, month: 4, day: 1 })).toBe(91));
-  test('Leap year', () =>
-    expect(dayOfYear({ year: 2000, month: 4, day: 1 })).toBe(92));
+  test('Non-leap year', () => expect(dayOfYear({ year: 1990, month: 4, day: 1 })).toBe(91));
+  test('Leap year', () => expect(dayOfYear({ year: 2000, month: 4, day: 1 })).toBe(92));
 });
 
 describe('DJD to Date', () => {
@@ -119,7 +104,6 @@ describe('DJD to Date', () => {
 });
 
 describe('Date to DJD', () => {
-    const got = dateToDjd(new Date(Date.UTC(1965, 1, 1, 11, 46)));
-    test('DJD', () => expect(got).toBeCloseTo(23772.990278, 6));
-  });
-  
+  const got = dateToDjd(new Date(Date.UTC(1965, 1, 1, 11, 46)));
+  test('DJD', () => expect(got).toBeCloseTo(23772.990278, 6));
+});

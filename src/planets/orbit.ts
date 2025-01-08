@@ -35,9 +35,7 @@ export class MLTerms extends Terms {
    */
   public override assemble(t: number): number {
     const b = frac360(this.terms[1] * t);
-    return reduceDeg(
-      this.terms[0] + b + (this.terms[3] * t + this.terms[2]) * t * t
-    );
+    return reduceDeg(this.terms[0] + b + (this.terms[3] * t + this.terms[2]) * t * t);
   }
 }
 
@@ -46,30 +44,30 @@ export class MLTerms extends Terms {
  * All angular values are in radians.
  */
 export type OrbitInstance = {
-  ph: number, // argument of perihelion
-  s: number, // eccentricity
-  nd: number, // ascending node
-  ic: number, // inclination
-  sa: number, // major semi-axis
-  ma: number, // mean anomaly
-  dm: number, // mean daily motion
-}
+  ph: number; // argument of perihelion
+  s: number; // eccentricity
+  nd: number; // ascending node
+  ic: number; // inclination
+  sa: number; // major semi-axis
+  ma: number; // mean anomaly
+  dm: number; // mean daily motion
+};
 
 /**  Osculating elements of an orbit. */
 export type OElements = {
   /** mean longitude */
-  ML: MLTerms,
+  ML: MLTerms;
   /** argument of perihelion */
-  PH: Terms,
+  PH: Terms;
   /** eccentricity */
-  EC: Terms,
+  EC: Terms;
   /** inclination */
-  IN: Terms,
+  IN: Terms;
   /** ascending node */
-  ND: Terms,
+  ND: Terms;
   /** major semiaxis  */
-  SA: number
-}
+  SA: number;
+};
 
 /**
  * Instantiate orbit for a given moment.
@@ -79,9 +77,7 @@ export type OElements = {
  */
 export function instantiate(t: number, e: OElements): OrbitInstance {
   const ph = e.PH.assemble(t);
-  const dm =
-    e.ML.terms[1] * 9.856263e-3 +
-    (e.ML.terms[2] + e.ML.terms[3]) / DAYS_PER_CENT;
+  const dm = e.ML.terms[1] * 9.856263e-3 + (e.ML.terms[2] + e.ML.terms[3]) / DAYS_PER_CENT;
   return {
     ph: radians(ph),
     s: e.EC.assemble(t),

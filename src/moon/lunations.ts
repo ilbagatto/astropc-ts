@@ -2,13 +2,7 @@ import { cos, radians, reduceDeg, round, sin } from '../mathutils';
 import { CalDate, dayOfYear, isLeapYear } from '../timeutils';
 import { FullMoon, LastQuarter, NewMoon, Quarter } from './quarters';
 
-function calculateDelta(
-  quarter: Quarter,
-  t: number,
-  ms: number,
-  mm: number,
-  f: number
-): number {
+function calculateDelta(quarter: Quarter, t: number, ms: number, mm: number, f: number): number {
   const tms = ms + ms;
   const tmm = mm + mm;
   const tf = f + f;
@@ -70,8 +64,7 @@ export function findClosestPhase(quarter: Quarter, ymd: CalDate) {
   const t3 = t2 * t;
 
   const c = radians(166.56 + (132.87 - 9.173e-3 * t) * t);
-  const j =
-    0.75933 + 29.53058868 * k + 0.0001178 * t2 - 1.55e-7 * t3 + 3.3e-4 * sin(c); // mean lunar phase
+  const j = 0.75933 + 29.53058868 * k + 0.0001178 * t2 - 1.55e-7 * t3 + 3.3e-4 * sin(c); // mean lunar phase
 
   const assemble = (args: number[]) =>
     radians(reduceDeg(args[0] + args[1] * k + args[2] * t2 + args[3] * t3));

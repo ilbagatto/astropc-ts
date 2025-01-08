@@ -44,10 +44,8 @@ describe('Nutation', () => {
   for (const { djd, dpsi, deps } of cases) {
     const t = djd / 36525;
     const nut = nutation(t);
-    test(`dpsi at DJD #${djd}`, () =>
-      expect(nut.deltaPsi).toBeCloseTo(dpsi, delta));
-    test(`deps at DJD #${djd}`, () =>
-      expect(nut.deltaEps).toBeCloseTo(deps, delta));
+    test(`dpsi at DJD #${djd}`, () => expect(nut.deltaPsi).toBeCloseTo(dpsi, delta));
+    test(`deps at DJD #${djd}`, () => expect(nut.deltaEps).toBeCloseTo(deps, delta));
   }
 });
 
@@ -66,8 +64,7 @@ describe('Obliquity of the Ecliptic', () => {
     ];
 
     for (const { djd, eps } of cases) {
-      test(`eps at DJD #${djd}`, () =>
-        expect(obliquity(djd)).toBeCloseTo(eps, delta));
+      test(`eps at DJD #${djd}`, () => expect(obliquity(djd)).toBeCloseTo(eps, delta));
     }
   });
 
@@ -76,9 +73,6 @@ describe('Obliquity of the Ecliptic', () => {
     const djd = 31875.5; // 1987-04-10.0
     const deps = 9.443;
     test(`eps at DJD #${djd} with deps ${deps}°`, () =>
-      expect(obliquity(djd, deps / 3600)).toBeCloseTo(
-        23.443569444444446,
-        delta
-      ));
+      expect(obliquity(djd, deps / 3600)).toBeCloseTo(23.443569444444446, delta));
   });
 });

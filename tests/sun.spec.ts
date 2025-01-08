@@ -2,7 +2,6 @@ import { apparent, solEqu, SolEquType, trueGeocentric } from '../src/sun';
 
 const delta = 4; // result precision
 
-
 describe('Sun position', () => {
   const cases = [
     {
@@ -35,24 +34,18 @@ describe('Sun position', () => {
     for (const { djd, l, r } of cases) {
       const t = djd / 36525;
       const geo = trueGeocentric(t);
-      test(`longitude for djd ${djd}`, () =>
-        expect(geo.phi).toBeCloseTo(l, delta));
-      test('R-vector for djd ${djd}', () =>
-        expect(geo.rho).toBeCloseTo(r, delta));
+      test(`longitude for djd ${djd}`, () => expect(geo.phi).toBeCloseTo(l, delta));
+      test('R-vector for djd ${djd}', () => expect(geo.rho).toBeCloseTo(r, delta));
     }
   });
-  
+
   describe('Apparent position', () => {
     for (const { djd, ap } of cases) {
       const sg = apparent(djd, { ignoreLightTravel: true });
-      test(`longitude for djd ${djd}`, () =>
-        expect(sg.phi).toBeCloseTo(ap, delta));
+      test(`longitude for djd ${djd}`, () => expect(sg.phi).toBeCloseTo(ap, delta));
     }
-  });  
+  });
 });
-
-
-
 
 describe('Equinoxes/Solstices', () => {
   const cases = [
