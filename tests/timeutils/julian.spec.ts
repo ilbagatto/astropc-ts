@@ -33,6 +33,10 @@ describe('Civil to Julian', () => {
   test('Oct. 1582, but before 10-th', () =>
     expect(julDay({ year: 1582, month: 10, day: 1 })).toBeCloseTo(-115863.5));
 
+  test('Oct. 1582, after 10-th', () =>
+    expect(julDay({ year: 1582, month: 10, day: 30 })).toBeCloseTo(-115844.5));
+
+
   describe('Exceptions', () => {
     test('Zero year', () =>
       expect(() => {
