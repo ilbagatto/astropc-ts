@@ -28,6 +28,17 @@ export enum PlanetId {
   Pluto,
 }
 
+export const AllPlanets = [
+  PlanetId.Mercury,
+  PlanetId.Venus,
+  PlanetId.Mars,
+  PlanetId.Jupiter,
+  PlanetId.Saturn,
+  PlanetId.Uranus,
+  PlanetId.Neptune,
+  PlanetId.Pluto,
+];
+
 // Params of calculated planetary heliocentric orbit
 type HelioRecord = {
   ll: number;
@@ -175,6 +186,8 @@ export class Planet {
           false,
           new PertPluto()
         );
+      default:
+        throw new Error(`Unknown planet id: ${id}`);
     }
   }
 
@@ -291,6 +304,17 @@ export class Planet {
     };
   }
 
+  /**
+   * Geocentric position. 
+   * 
+   * If ctx.apparent is true, then the result will be 
+   * an apparent position, reffered to true equinox of the date 
+   * and with respect to aberration. Otherwise, the method will 
+   * return true geometric position.
+   * 
+   * @param ctx - CestialSphera instance, the context
+   * @returns EclipticCoords record.
+   */
   geocentricPosition(ctx: CelestialSphera): EclipticCoords {
     const sg = ctx.sunGeo;
     // convert logitude of the Sun to Earth's position

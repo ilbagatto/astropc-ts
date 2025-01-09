@@ -1,8 +1,8 @@
-import { apparent, solEqu, SolEquType, trueGeocentric } from '../src/sun';
+import { apparent, solEqu, SolEquType, trueGeocentric } from "../src/sun";
 
 const delta = 4; // result precision
 
-describe('Sun position', () => {
+describe("Sun position", () => {
   const cases = [
     {
       djd: 30916.5, // 24 Aug 1984 00:00
@@ -30,24 +30,30 @@ describe('Sun position', () => {
     },
   ];
 
-  describe('True geometric position', () => {
+  describe("True geometric position", () => {
     for (const { djd, l, r } of cases) {
       const t = djd / 36525;
       const geo = trueGeocentric(t);
-      test(`longitude for djd ${djd}`, () => expect(geo.phi).toBeCloseTo(l, delta));
-      test('R-vector for djd ${djd}', () => expect(geo.rho).toBeCloseTo(r, delta));
+      test(`longitude for djd ${djd}`, () =>
+        expect(geo.phi).toBeCloseTo(l, delta));
+      test("R-vector for djd ${djd}", () =>
+        expect(geo.rho).toBeCloseTo(r, delta));
     }
   });
 
-  describe('Apparent position', () => {
+  describe("Apparent position", () => {
     for (const { djd, ap } of cases) {
       const sg = apparent(djd, { ignoreLightTravel: true });
-      test(`longitude for djd ${djd}`, () => expect(sg.phi).toBeCloseTo(ap, delta));
+      test(`longitude for djd ${djd}`, () =>
+        expect(sg.phi).toBeCloseTo(ap, delta));
+      const sg1 = apparent(djd, { ignoreLightTravel: false });
+      const ltDelta = Math.abs(sg.phi - sg1.phi);
+      test("light-travel flag", () => expect(ltDelta).toBeGreaterThan(0));
     }
   });
 });
 
-describe('Equinoxes/Solstices', () => {
+describe("Equinoxes/Solstices", () => {
   const cases = [
     // from 'Astronomical algorithms' by Jean Meeus, p.168
     {
@@ -63,28 +69,28 @@ describe('Equinoxes/Solstices', () => {
       year: 2000,
       event: SolEquType.marchEquinox,
       angle: 0.0,
-      title: 'March equinox',
+      title: "March equinox",
     },
     {
       djd: 36696.575,
       year: 2000,
       event: SolEquType.juneSolstice,
       angle: 90.0,
-      title: 'June solstice',
+      title: "June solstice",
     },
     {
       djd: 36790.227778,
       year: 2000,
       event: SolEquType.septemberEquinox,
       angle: 180.0,
-      title: 'September equinox',
+      title: "September equinox",
     },
     {
       djd: 36880.067361,
       year: 2000,
       event: SolEquType.decemberSolstice,
       angle: 270.0,
-      title: 'December solstice',
+      title: "December solstice",
     },
   ];
 

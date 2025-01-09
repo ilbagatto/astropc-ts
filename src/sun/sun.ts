@@ -78,10 +78,13 @@ export function trueGeocentric(t: number, ms?: number): Polar {
  * @param options: { dpsi: nutation in longitude, optional, ignoreLightTravel: true }
  * @returns
  */
-export function apparent(djd: number, options: { dpsi?: number; ignoreLightTravel: true }): Polar {
+export function apparent(djd: number, options?: { dpsi?: number; ignoreLightTravel?: boolean }): Polar {
+  options ??= {};
+  options.ignoreLightTravel ??= true;
   const t = djd / DAYS_PER_CENT;
-  const tGeo = trueGeocentric(t);
   options.dpsi ??= nutation(t).deltaPsi;
+  const tGeo = trueGeocentric(t);
+  
 
   let lambda = tGeo.phi + options.dpsi!; // nutation
   lambda -= ABERRATION; // aberration

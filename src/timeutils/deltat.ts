@@ -19,7 +19,7 @@
 import { polynome } from '../mathutils';
 import { calDay, djdZero } from './julian';
 
-const _historical: { [index: number]: number } = {
+const HISTORICAL: { [index: number]: number } = {
   // From J.Meeus: Astronomical Algorithms: 2 edition
   1620: 121.0,
   1622: 112.0,
@@ -224,19 +224,19 @@ const _historical: { [index: number]: number } = {
   2016: 70.0,
 };
 
-const ydSince = 1620;
-const ydUntil = 2016;
+const YD_SINCE = 1620;
+const YD_UNTIL = 2016;
 
 function interpolate(ye: number, djd: number): number {
-  if (ye == ydUntil) {
+  if (ye == YD_UNTIL) {
     // the last value in the table, no interpolation
-    return _historical[ydUntil]!;
+    return HISTORICAL[YD_UNTIL]!;
   }
 
   const y0 = ye % 2 == 0 ? ye : ye - 1;
   const y1 = y0 + 2;
-  const d0 = _historical[y0]!;
-  const d1 = _historical[y1]!;
+  const d0 = HISTORICAL[y0]!;
+  const d1 = HISTORICAL[y1]!;
   const j0 = djdZero(y0);
   const j1 = djdZero(y1);
   // simple linear interpolation between two values
@@ -274,7 +274,7 @@ function predict(ye: number): number {
 export function deltaT(djd: number): number {
   const date = calDay(djd);
 
-  if (date.year >= ydSince && date.year <= ydUntil) {
+  if (date.year >= YD_SINCE && date.year <= YD_UNTIL) {
     return interpolate(date.year, djd);
   }
   return predict(date.year);
