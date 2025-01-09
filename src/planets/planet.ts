@@ -257,7 +257,6 @@ export class Planet {
     };
   }
 
-
   /// Calculate heliocentric position taking account of the finit light-travel
   /// time between the Earth and the planet.
   ///

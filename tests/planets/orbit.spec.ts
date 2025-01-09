@@ -28,8 +28,8 @@ describe('Terms', () => {
     test('ML with 4 terms', () => {
       const terms = new MLTerms(178.179078, 415.2057519, 0.0003011, 1e-6);
       expect(terms.assemble(t)).toBeCloseTo(176.2000177853655, delta);
-    });  
-  })
+    });
+  });
 });
 describe('Osculation elements', () => {
   const oe = {

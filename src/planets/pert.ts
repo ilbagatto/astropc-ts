@@ -26,7 +26,6 @@ export type PertRecord = {
   dhl: number;
 };
 
-
 /**  Calculates planetary perturbations */
 export abstract class PertCalculator {
   constructor(public id: PlanetId) {}

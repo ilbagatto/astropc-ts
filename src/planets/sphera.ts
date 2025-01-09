@@ -5,7 +5,6 @@ import { DAYS_PER_CENT, deltaT } from '../timeutils';
 import { instantiate, OrbitInstance } from './orbit';
 import { Planet, PlanetId } from './planet';
 
-
 export class CelestialSphera {
   private _auxSun?: number[];
   private orbits: Map<PlanetId, OrbitInstance> = new Map();
@@ -20,7 +19,6 @@ export class CelestialSphera {
     public obliquity: number,
     public deltaT: number
   ) {}
-
 
   /**
    * Auxiliraly Sun-related elements needed for calculating perturbations.
@@ -38,8 +36,7 @@ export class CelestialSphera {
     x[5] = 2 * x[1] - 6 * x[2] + 3 * x[3];
 
     return x;
-  }  
-
+  }
 
   /**
    * Factory that substitutes the constructor.

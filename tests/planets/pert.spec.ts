@@ -7,12 +7,12 @@ import {
   PertSaturn,
   PertUranus,
   PertVenus,
-} from "../../src/planets/pert";
-import { CelestialSphera } from "../../src/planets/sphera";
+} from '../../src/planets/pert';
+import { CelestialSphera } from '../../src/planets/sphera';
 
-describe("PertCalculator implementations", () => {
+describe('PertCalculator implementations', () => {
   const ctx = CelestialSphera.forDJD(23772.990277);
-  test("Mercury", () => {
+  test('Mercury', () => {
     const pert = new PertMercury().calculatePerturbations(ctx);
     expect(pert).toMatchObject({
       dl: 0.0008172644590941437,
@@ -24,7 +24,7 @@ describe("PertCalculator implementations", () => {
       dhl: 0,
     });
   });
-  test("Venus", () => {
+  test('Venus', () => {
     const pert = new PertVenus().calculatePerturbations(ctx);
     expect(pert).toMatchObject({
       dl: 0.005243803988052716,
@@ -36,7 +36,7 @@ describe("PertCalculator implementations", () => {
       dhl: 0,
     });
   });
-  test("Mars", () => {
+  test('Mars', () => {
     const pert = new PertMars().calculatePerturbations(ctx);
     expect(pert).toMatchObject({
       dl: -0.00280602093366712,
@@ -48,7 +48,7 @@ describe("PertCalculator implementations", () => {
       dhl: 0,
     });
   });
-  test("Jupiter", () => {
+  test('Jupiter', () => {
     const pert = new PertJupiter().calculatePerturbations(ctx);
     expect(pert).toMatchObject({
       dl: 0,
@@ -60,7 +60,7 @@ describe("PertCalculator implementations", () => {
       dhl: 0,
     });
   });
-  test("Saturn", () => {
+  test('Saturn', () => {
     const pert = new PertSaturn().calculatePerturbations(ctx);
     expect(pert).toMatchObject({
       dl: 0,
@@ -72,7 +72,7 @@ describe("PertCalculator implementations", () => {
       dhl: 0.00004100755335842852,
     });
   });
-  test("Uranus", () => {
+  test('Uranus', () => {
     const pert = new PertUranus().calculatePerturbations(ctx);
     expect(pert).toMatchObject({
       dl: -0.06841758311407377,
@@ -84,7 +84,7 @@ describe("PertCalculator implementations", () => {
       dhl: -0.0000025570207258577733,
     });
   });
-  test("Neptune", () => {
+  test('Neptune', () => {
     const pert = new PertNeptune().calculatePerturbations(ctx);
     expect(pert).toMatchObject({
       dl: 0.005870238119480507,
@@ -96,7 +96,7 @@ describe("PertCalculator implementations", () => {
       dhl: -9.7047829324761e-7,
     });
   });
-  test("Pluto", () => {
+  test('Pluto', () => {
     const pert = new PertPluto().calculatePerturbations();
     expect(pert).toMatchObject({
       dl: 0,
