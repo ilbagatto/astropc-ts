@@ -305,13 +305,13 @@ export class Planet {
   }
 
   /**
-   * Geocentric position. 
-   * 
-   * If ctx.apparent is true, then the result will be 
-   * an apparent position, reffered to true equinox of the date 
-   * and with respect to aberration. Otherwise, the method will 
+   * Geocentric position.
+   *
+   * If ctx.apparent is true, then the result will be
+   * an apparent position, reffered to true equinox of the date
+   * and with respect to aberration. Otherwise, the method will
    * return true geometric position.
-   * 
+   *
    * @param ctx - CestialSphera instance, the context
    * @returns EclipticCoords record.
    */
