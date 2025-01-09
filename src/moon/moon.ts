@@ -31,8 +31,6 @@ const SUN_ORBIT = {
   M: [357.5291092, 35999.0502909, -0.0001536, 1.0 / 24490000],
 };
 
-
-
 /**
  * True position of the Moon.
  * @param djd - number of Julian centuries elapsed since 1900, Jan 0.5.

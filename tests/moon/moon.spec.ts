@@ -163,4 +163,3 @@ describe('Lunar node', () => {
   test('True Lunar Node for DJD #$djd', () =>
     expect(lunarNode(djd)).toBeCloseTo(81.86652882901491, delta));
 });
-

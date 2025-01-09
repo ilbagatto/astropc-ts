@@ -150,7 +150,6 @@ describe('Sexigecimal', () => {
       test('Seconds', () => expect(s).toBeCloseTo(-10));
     });
 
-
     describe('Zodiac', () => {
       const [z, d] = zdms(312.4);
 

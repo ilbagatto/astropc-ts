@@ -1,56 +1,46 @@
-import { OrbitInstance } from "../../src/planets/orbit";
-import { PertRecord } from "../../src/planets/pert";
-import { Planet, PlanetId } from "../../src/planets/planet";
-import { CelestialSphera } from "../../src/planets/sphera";
+import { OrbitInstance } from '../../src/planets/orbit';
+import { PertRecord } from '../../src/planets/pert';
+import { Planet, PlanetId } from '../../src/planets/planet';
+import { CelestialSphera } from '../../src/planets/sphera';
 
-describe("Factory methods", () => {
-  test("Get planet by name", () => {
-    const names = [
-      "Mercury",
-      "Venus",
-      "Mars",
-      "Jupiter",
-      "Saturn",
-      "Uranus",
-      "Neptune",
-      "Pluto",
-    ];
+describe('Factory methods', () => {
+  test('Get planet by name', () => {
+    const names = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto'];
 
     for (const name of names) {
       const pla = Planet.forName(name);
       switch (name) {
-        case "Mercury":
+        case 'Mercury':
           expect(pla.id).toBe(PlanetId.Mercury);
           break;
-        case "Venus":
+        case 'Venus':
           expect(pla.id).toBe(PlanetId.Venus);
           break;
-        case "Mars":
+        case 'Mars':
           expect(pla.id).toBe(PlanetId.Mars);
           break;
-        case "Jupiter":
+        case 'Jupiter':
           expect(pla.id).toBe(PlanetId.Jupiter);
           break;
-        case "Saturn":
+        case 'Saturn':
           expect(pla.id).toBe(PlanetId.Saturn);
           break;
-        case "Uranus":
+        case 'Uranus':
           expect(pla.id).toBe(PlanetId.Uranus);
           break;
-        case "Neptune":
+        case 'Neptune':
           expect(pla.id).toBe(PlanetId.Neptune);
           break;
-        case "Pluto":
+        case 'Pluto':
           expect(pla.id).toBe(PlanetId.Pluto);
       }
     }
   });
 
-  test("Unknown name", () =>
-    expect(() => Planet.forName("Foo")).toThrow(/unknown planet/i));
+  test('Unknown name', () => expect(() => Planet.forName('Foo')).toThrow(/unknown planet/i));
 });
 
-describe("Heliocentric", () => {
+describe('Heliocentric', () => {
   const delta = 6;
 
   const oi: OrbitInstance = {
@@ -86,15 +76,15 @@ describe("Heliocentric", () => {
     rho: 0.9858704400566043,
   };
 
-  test("ll", () => expect(exp.ll).toBeCloseTo(got.ll, delta));
-  test("rpd", () => expect(exp.rpd).toBeCloseTo(got.rpd, delta));
-  test("lpd", () => expect(exp.lpd).toBeCloseTo(got.lpd, delta));
-  test("spsi", () => expect(exp.spsi).toBeCloseTo(got.spsi, delta));
-  test("cpsi", () => expect(exp.cpsi).toBeCloseTo(got.cpsi, delta));
-  test("rho", () => expect(exp.rho).toBeCloseTo(got.rho, delta));
+  test('ll', () => expect(exp.ll).toBeCloseTo(got.ll, delta));
+  test('rpd', () => expect(exp.rpd).toBeCloseTo(got.rpd, delta));
+  test('lpd', () => expect(exp.lpd).toBeCloseTo(got.lpd, delta));
+  test('spsi', () => expect(exp.spsi).toBeCloseTo(got.spsi, delta));
+  test('cpsi', () => expect(exp.cpsi).toBeCloseTo(got.cpsi, delta));
+  test('rho', () => expect(exp.rho).toBeCloseTo(got.rho, delta));
 });
 
-describe("Positions", () => {
+describe('Positions', () => {
   const delta = 1e-3; // result precision
 
   const cases = [
@@ -135,14 +125,13 @@ describe("Positions", () => {
   for (const { id, pos } of cases) {
     const pla = Planet.forId(id);
     const got = pla.geocentricPosition(sph);
-    test(`${pla} Lon.`, () =>
-      expect(got.lambda).toBeCloseTo(pos.lambda, delta));
+    test(`${pla} Lon.`, () => expect(got.lambda).toBeCloseTo(pos.lambda, delta));
     test(`${pla} Lat.`, () => expect(got.beta).toBeCloseTo(pos.beta, delta));
     test(`${pla} Dist.`, () => expect(got.delta).toBeCloseTo(pos.delta, delta));
   }
 });
 
-describe("Duffett-Smith examples", () => {
+describe('Duffett-Smith examples', () => {
   const delta = 1e-2; // result precision
 
   const cases = [
@@ -161,8 +150,7 @@ describe("Duffett-Smith examples", () => {
   for (const { id, pos } of cases) {
     const pla = Planet.forId(id);
     const got = pla.geocentricPosition(sph);
-    test(`${pla} Lon.`, () =>
-      expect(got.lambda).toBeCloseTo(pos.lambda, delta));
+    test(`${pla} Lon.`, () => expect(got.lambda).toBeCloseTo(pos.lambda, delta));
     test(`${pla} Lat.`, () => expect(got.beta).toBeCloseTo(pos.beta, delta));
     test(`${pla} Dist.`, () => expect(got.delta).toBeCloseTo(pos.delta, delta));
   }
