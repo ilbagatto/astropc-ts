@@ -31,16 +31,7 @@ const SUN_ORBIT = {
   M: [357.5291092, 35999.0502909, -0.0001536, 1.0 / 24490000],
 };
 
-/**
- * Mean Lunar Node.
- * @param t - number of Julian centuries elapsed since 1900, Jan 0.5.
- * @returns - longitude in degrees
- */
-export function meanNode(t: number): number {
-  return reduceDeg(
-    polynome(t, 125.0445479, -1934.1362891, 0.0020754, 1.0 / 467441, 1.0 / 60616000)
-  );
-}
+
 
 /**
  * True position of the Moon.

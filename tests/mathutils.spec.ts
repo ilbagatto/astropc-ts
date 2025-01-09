@@ -138,15 +138,21 @@ describe('Sexigecimal', () => {
       test('Minutes', () => expect(m).toBeCloseTo(45));
       test('Seconds', () => expect(s).toBeCloseTo(30.0, delta));
     });
-    describe('Negative, zero degrees', () => {
-      const [d, m, s] = dms(-0.75833333333333);
+    describe('Negative minutes', () => {
+      const [d, m] = dms(-0.75833333333333);
 
       test('Degrees', () => expect(d).toBeCloseTo(0));
       test('Minutes', () => expect(m).toBeCloseTo(-45));
     });
+    describe('Negative seconds', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [d, m, s] = dms(-0.0027777777777777775);
+      test('Seconds', () => expect(s).toBeCloseTo(-10));
+    });
+
 
     describe('Zodiac', () => {
-      const [z, d, m] = zdms(312.4);
+      const [z, d] = zdms(312.4);
 
       test('Zodiac sign index', () => expect(z).toBe(10));
       test('Zodiac degrees', () => expect(d).toBeCloseTo(12));
@@ -189,7 +195,7 @@ describe('Arcs', () => {
       [280.0, 30.0, 110],
       [30.0, 280.0, -110],
     ];
-    for (let [a, b, c] of cases) {
+    for (const [a, b, c] of cases) {
       test(`a = ${a}, b = ${b}, deg.`, () => {
         expect(diffAngle(a, b)).toBeCloseTo(c, delta);
       });
