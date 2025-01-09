@@ -26,22 +26,6 @@ export type PertRecord = {
   dhl: number;
 };
 
-/**
- * Auxiliraly Sun-related elements needed for calculating perturbations.
- * @param t time in centuries since the epoch 1900,0.
- * @returns
- */
-export function buildAuxSun(t: number): number[] {
-  const x = [0, 0, 0, 0, 0, 0];
-  x[0] = t / 5 + 0.1;
-  x[1] = reduceRad(4.14473 + 5.29691e1 * t);
-  x[2] = reduceRad(4.641118 + 2.132991e1 * t);
-  x[3] = reduceRad(4.250177 + 7.478172 * t);
-  x[4] = 5 * x[2] - 2 * x[1];
-  x[5] = 2 * x[1] - 6 * x[2] + 3 * x[3];
-
-  return x;
-}
 
 /**  Calculates planetary perturbations */
 export abstract class PertCalculator {
@@ -621,7 +605,8 @@ export class PertPluto extends PertCalculator {
     super(PlanetId.Pluto);
   }
 
-  override calculatePerturbations(): PertRecord {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  override calculatePerturbations(ctx?: CelestialSphera): PertRecord {
     return { dl: 0, dr: 0, dml: 0, ds: 0, dm: 0, da: 0, dhl: 0 };
   }
 }

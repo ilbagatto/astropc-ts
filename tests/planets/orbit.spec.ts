@@ -9,11 +9,27 @@ describe('Terms', () => {
     const exp = 77.2073463265456;
     expect(terms.assemble(t)).toBeCloseTo(exp, delta);
   });
-  test('Mean longitude', () => {
-    const terms = new MLTerms(178.179078, 415.2057519, 0.0003011);
-    const exp = 176.2000171915306;
-    expect(terms.assemble(t)).toBeCloseTo(exp, delta);
-  });
+  describe('Mean longitude', () => {
+    test('ML with 1 term', () => {
+      const terms = new MLTerms(178.179078);
+      expect(terms.assemble(t)).toBeCloseTo(178.179078, delta);
+    });
+
+    test('ML with 2 terms', () => {
+      const terms = new MLTerms(178.179078, 415.2057519);
+      expect(terms.assemble(t)).toBeCloseTo(176.1998044652222, delta);
+    });
+
+    test('ML with 3 terms', () => {
+      const terms = new MLTerms(178.179078, 415.2057519, 0.0003011);
+      const exp = 176.2000171915306;
+      expect(terms.assemble(t)).toBeCloseTo(exp, delta);
+    });
+    test('ML with 4 terms', () => {
+      const terms = new MLTerms(178.179078, 415.2057519, 0.0003011, 1e-6);
+      expect(terms.assemble(t)).toBeCloseTo(176.2000177853655, delta);
+    });  
+  })
 });
 describe('Osculation elements', () => {
   const oe = {

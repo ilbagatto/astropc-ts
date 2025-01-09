@@ -257,13 +257,6 @@ export class Planet {
     };
   }
 
-  /// Calculates perturbations.
-  /// [ctx] is a context, [dt] is optional `delta-T` in seconds.
-  /// Typically, some members of the returned PertRecord instance are
-  /// initialized while others contain zeroes.
-  private calculatePerturbations(ctx: CelestialSphera, dt: number = 0): PertRecord {
-    return this.pertCalculator.calculatePerturbations(ctx, dt);
-  }
 
   /// Calculate heliocentric position taking account of the finit light-travel
   /// time between the Earth and the planet.
@@ -287,7 +280,7 @@ export class Planet {
     rho: number = 0
   ): HelioRecord {
     const ma = ctx.getMeanAnomaly(this.id, dt);
-    const pert = this.calculatePerturbations(ctx, dt);
+    const pert = this.pertCalculator.calculatePerturbations(ctx, dt);
     const h = Planet.calculateHeliocentric(oi, ma, rg, lg, pert);
     if (dt == 0) {
       // take account of the finit light-travel time between the Earth and the planet.

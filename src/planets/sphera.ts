@@ -1,10 +1,10 @@
-import { Polar, radians } from '../mathutils';
+import { Polar, radians, reduceRad } from '../mathutils';
 import { nutation, NutationRecord, obliquity } from '../nutobliq';
 import * as sun from '../sun';
 import { DAYS_PER_CENT, deltaT } from '../timeutils';
 import { instantiate, OrbitInstance } from './orbit';
-import { buildAuxSun } from './pert';
 import { Planet, PlanetId } from './planet';
+
 
 export class CelestialSphera {
   private _auxSun?: number[];
@@ -20,6 +20,26 @@ export class CelestialSphera {
     public obliquity: number,
     public deltaT: number
   ) {}
+
+
+  /**
+   * Auxiliraly Sun-related elements needed for calculating perturbations.
+   * @param t time in centuries since the epoch 1900,0.
+   * @returns
+   */
+  private buildAuxSun(): number[] {
+    const x = [0, 0, 0, 0, 0, 0];
+    const t = this.t;
+    x[0] = t / 5 + 0.1;
+    x[1] = reduceRad(4.14473 + 5.29691e1 * t);
+    x[2] = reduceRad(4.641118 + 2.132991e1 * t);
+    x[3] = reduceRad(4.250177 + 7.478172 * t);
+    x[4] = 5 * x[2] - 2 * x[1];
+    x[5] = 2 * x[1] - 6 * x[2] + 3 * x[3];
+
+    return x;
+  }  
+
 
   /**
    * Factory that substitutes the constructor.
@@ -41,7 +61,7 @@ export class CelestialSphera {
    * Once calculated, the values are cached.
    */
   get auxSun(): number[] {
-    this._auxSun ??= buildAuxSun(this.t);
+    this._auxSun ??= this.buildAuxSun();
     return this._auxSun;
   }
 
