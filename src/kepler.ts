@@ -1,6 +1,6 @@
 /// Kepler equation
 
-import { abs, atan, cos, sin, sqrt, tan } from "./mathutils";
+import { abs, atan, cos, sin, sqrt, tan } from './mathutils';
 
 /**
  * Solve Kepler equation.
