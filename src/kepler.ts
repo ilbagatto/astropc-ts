@@ -1,5 +1,7 @@
 /// Kepler equation
 
+import { abs, atan, cos, sin, sqrt, tan } from "./mathutils";
+
 /**
  * Solve Kepler equation.
  *
@@ -10,11 +12,11 @@
 export function eccentricAnomaly(s: number, m: number): number {
   const delta = 1e-7; // minimal precision
   const solve = (ea: number): number => {
-    const dla = ea - s * Math.sin(ea) - m;
-    if (Math.abs(dla) < delta) {
+    const dla = ea - s * sin(ea) - m;
+    if (abs(dla) < delta) {
       return ea;
     }
-    return solve(ea - dla / (1 - s * Math.cos(ea)));
+    return solve(ea - dla / (1 - s * cos(ea)));
   };
 
   return solve(m);
@@ -27,5 +29,5 @@ export function eccentricAnomaly(s: number, m: number): number {
  * @returns true anomaly
  */
 export function trueAnomaly(s: number, ea: number): number {
-  return 2 * Math.atan(Math.sqrt((1 + s) / (1 - s)) * Math.tan(ea / 2));
+  return 2 * atan(sqrt((1 + s) / (1 - s)) * tan(ea / 2));
 }

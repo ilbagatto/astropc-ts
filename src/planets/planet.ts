@@ -1,6 +1,6 @@
 import { EclipticCoords } from '../common';
 import { eccentricAnomaly, trueAnomaly } from '../kepler';
-import { asin, atan, atan2, cos, degrees, radians, reduceRad, sin, sqrt } from '../mathutils';
+import { asin, atan, atan2, cos, degrees, PI, radians, reduceRad, sin, sqrt } from '../mathutils';
 import { instantiate, MLTerms, OElements, OrbitInstance, Terms } from './orbit';
 import {
   PertCalculator,
@@ -310,7 +310,7 @@ export class Planet {
   geocentricPosition(ctx: CelestialSphera): EclipticCoords {
     const sg = ctx.sunGeo;
     // convert logitude of the Sun to Earth's position
-    const lg = radians(sg.phi) + Math.PI;
+    const lg = radians(sg.phi) + PI;
     const rsn = sg.rho; // Sun-Earth distance
     const oi = instantiate(ctx.t, this.orbit);
     // heliocentric position corrected for light-time travel
@@ -322,7 +322,7 @@ export class Planet {
     // geocentric ecliptic longitude
     let lam =
       this.isInner ?
-        atan2(-1 * h.rpd * sll, rsn - h.rpd * cll) + lg + Math.PI
+        atan2(-1 * h.rpd * sll, rsn - h.rpd * cll) + lg + PI
       : atan2(rsn * sll, h.rpd - rsn * cll) + h.lpd;
     lam = reduceRad(lam);
     // geocentric latitude

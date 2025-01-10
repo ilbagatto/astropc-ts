@@ -47,7 +47,7 @@
  * [Wiki article](https://en.wikipedia.org/wiki/Gregorian_calendar#Adoption_of_the_Gregorian_Calendar)
  */
 
-import { modf } from '../mathutils';
+import { abs, floor, modf, trunc } from '../mathutils';
 
 /** Year when Gregorian calendar was introduced */
 const GREGORIAN_YEAR = 1582;
@@ -95,7 +95,7 @@ export function julDay(ymd: CalDate): number {
     throw new Error('Zero year not allowed!');
   }
 
-  const d = Math.trunc(ymd.day);
+  const d = trunc(ymd.day);
   if (ymd.year == GREGORIAN_YEAR && ymd.month == 10) {
     if (d > 4 && d < 15) {
       throw new Error(`Impossible date: ${ymd.year}-${ymd.month}-${ymd.day}`);
@@ -111,15 +111,15 @@ export function julDay(ymd: CalDate): number {
   let b;
   if (afterGregorian(ymd)) {
     // after Gregorian calendar
-    const a = Math.trunc(y / 100);
-    b = 2 - a + Math.trunc(a / 4);
+    const a = trunc(y / 100);
+    b = 2 - a + trunc(a / 4);
   } else {
     b = 0;
   }
 
   const f = 365.25 * y;
-  const c = Math.trunc(y < 0 ? f - 0.75 : f) - 694025;
-  const e = Math.trunc(30.6001 * (m + 1));
+  const c = trunc(y < 0 ? f - 0.75 : f) - 694025;
+  const e = trunc(30.6001 * (m + 1));
 
   return b + c + e + ymd.day - 0.5;
 }
@@ -135,13 +135,13 @@ export function calDay(djd: number): CalDate {
   let [f, i] = modf(d);
 
   if (i > -115860) {
-    const a = Math.floor(i / 36524.25 + 9.9835726e-1) + 14;
-    i += 1 + a - Math.floor(a / 4);
+    const a = floor(i / 36524.25 + 9.9835726e-1) + 14;
+    i += 1 + a - floor(a / 4);
   }
-  const b = Math.floor(i / 365.25 + 8.02601e-1);
-  const c = i - Math.floor(365.25 * b + 7.50001e-1) + 416;
-  const g = Math.floor(c / 30.6001);
-  const da = c - Math.floor(30.6001 * g) + f;
+  const b = floor(i / 365.25 + 8.02601e-1);
+  const c = i - floor(365.25 * b + 7.50001e-1) + 416;
+  const g = floor(c / 30.6001);
+  const da = c - floor(30.6001 * g) + f;
   const mo = g - (g > 13.5 ? 13 : 1);
   let ye = b + (mo < 2.5 ? 1900 : 1899);
   // convert astronomical, zero-based year to civil
@@ -157,8 +157,8 @@ export function calDay(djd: number): CalDate {
  * @returns DJD at Greenwich midnight
  */
 export function djdMidnight(djd: number): number {
-  const f = Math.floor(djd);
-  return f + (Math.abs(djd - f) >= 0.5 ? 0.5 : -0.5);
+  const f = floor(djd);
+  return f + (abs(djd - f) >= 0.5 ? 0.5 : -0.5);
 }
 
 /**
@@ -169,7 +169,7 @@ export function djdMidnight(djd: number): number {
 export function weekDay(djd: number): number {
   const d0 = djdMidnight(djd);
   const j0 = d0 + DJD_TO_JD;
-  return Math.trunc((j0 + 1.5) % 7);
+  return trunc((j0 + 1.5) % 7);
 }
 
 /**
@@ -188,9 +188,9 @@ export function isLeapYear(ye: number): boolean {
  */
 export function dayOfYear(ymd: CalDate): number {
   const k = isLeapYear(ymd.year) ? 1 : 2;
-  const a = Math.floor((275 * ymd.month) / 9);
-  const b = Math.floor(k * ((ymd.month + 9) / 12.0));
-  const c = Math.floor(ymd.day);
+  const a = floor((275 * ymd.month) / 9);
+  const b = floor(k * ((ymd.month + 9) / 12.0));
+  const c = floor(ymd.day);
   return a - b + c - 30;
 }
 
@@ -206,8 +206,8 @@ export function dayOfYear(ymd: CalDate): number {
  */
 export function djdZero(year: number): number {
   const y = year - 1;
-  const a = Math.trunc(y / 100);
-  return Math.trunc(365.25 * y) - a + Math.trunc(a / 4) - 693595.5;
+  const a = trunc(y / 100);
+  return trunc(365.25 * y) - a + trunc(a / 4) - 693595.5;
 }
 
 /**

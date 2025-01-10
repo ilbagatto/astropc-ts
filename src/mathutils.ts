@@ -34,7 +34,7 @@ export function degrees(x: number): number {
  * will produce `-0.5, -5.0`
  */
 export function modf(x: number): [number, number] {
-  const i = Math.trunc(x);
+  const i = trunc(x);
   return [x - i, i];
 }
 
@@ -93,7 +93,7 @@ export function reduceRad(x: number): number {
  * The result always keeps sign of the argument, e.g.: `frac(-5.5) = -0.5`
  */
 export function frac(x: number): number {
-  const res = Math.abs(x) % 1.0;
+  const res = abs(x) % 1.0;
   return x < 0 ? -res : res;
 }
 
@@ -116,7 +116,7 @@ export function frac360(x: number): number {
  */
 export function ddd(d: number, m: number, s: number = 0): number {
   const sgn = d < 0 || m < 0 || s < 0 ? -1 : 1;
-  return (Math.abs(d) + (Math.abs(m) + Math.abs(s) / 60.0) / 60.0) * sgn;
+  return (abs(d) + (abs(m) + abs(s) / 60.0) / 60.0) * sgn;
 }
 
 /**
@@ -125,7 +125,7 @@ export function ddd(d: number, m: number, s: number = 0): number {
  * @returns [degrees, minutes, seconds]
  */
 export function dms(x: number): [number, number, number] {
-  let [f, i] = modf(Math.abs(x));
+  let [f, i] = modf(abs(x));
   let d = i;
   [f, i] = modf(f * 60);
   let m = i;
@@ -151,7 +151,7 @@ export function dms(x: number): [number, number, number] {
  */
 export function zdms(x: number): [number, number, number, number] {
   const [d, m, s] = dms(x);
-  return [Math.trunc(d / 30), d % 30, m, s];
+  return [trunc(d / 30), d % 30, m, s];
 }
 
 /**
@@ -161,7 +161,7 @@ export function zdms(x: number): [number, number, number, number] {
  * @returns - shothest distance, degrees
  */
 export function shortestArc(a: number, b: number): number {
-  const x = Math.abs(a - b);
+  const x = abs(a - b);
   return x > 180 ? 360 - x : x;
 }
 
@@ -172,8 +172,8 @@ export function shortestArc(a: number, b: number): number {
  * @returns - shothest distance, radians
  */
 export function shortestArcRad(a: number, b: number): number {
-  const x = Math.abs(a - b);
-  return x > Math.PI ? PI2 - x : x;
+  const x = abs(a - b);
+  return x > PI ? PI2 - x : x;
 }
 
 /**
@@ -214,3 +214,5 @@ export const floor = Math.floor;
 export const trunc = Math.trunc;
 export const round = Math.round;
 export const atan2 = Math.atan2;
+export const abs = Math.abs;
+export const PI = Math.PI;
