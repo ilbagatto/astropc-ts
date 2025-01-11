@@ -1,23 +1,23 @@
-import { abs } from "../src/mathutils";
-import { PlanetId } from "../src/planets/planet";
-import { CelestialSphera } from "../src/planets/sphera";
-import { deltaT } from "../src/timeutils";
+import { abs } from '../src/mathutils';
+import { PlanetId } from '../src/planets/planet';
+import { CelestialSphera } from '../src/planets/sphera';
+import { deltaT } from '../src/timeutils';
 
-describe("Factory", () => {
+describe('Factory', () => {
   const djd = 23772.990277;
   const sph = CelestialSphera.forDJD(djd);
-  test("Instance created", () => expect(sph).toBeInstanceOf(CelestialSphera));
+  test('Instance created', () => expect(sph).toBeInstanceOf(CelestialSphera));
 
-  test("Aux Sun", () => expect(sph.auxSun).toBeDefined());
+  test('Aux Sun', () => expect(sph.auxSun).toBeDefined());
 
-  test("getMeanAnomaly", () => {
+  test('getMeanAnomaly', () => {
     const dt = deltaT(djd);
     const ma1 = sph.getMeanAnomaly(PlanetId.Venus);
     const ma2 = sph.getMeanAnomaly(PlanetId.Venus, dt);
     expect(abs(ma1 - ma2)).toBeGreaterThan(0);
   });
 
-  test("getOrbitInstance", () => {
+  test('getOrbitInstance', () => {
     const exp = {
       ph: 0.24031949336774427,
       s: 0.048441411116171056,
